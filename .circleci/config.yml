@@ -6,6 +6,8 @@ jobs:
   configure:
     docker:
       - image: ubuntu:16.04
+      - image: node:18
+      - image: golang:1.19
     resource_class: medium
     steps:
       - run: 
