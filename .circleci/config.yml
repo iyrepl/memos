@@ -11,13 +11,14 @@ jobs:
     resource_class: medium
     steps:
       - run: 
+          name: Search
+          command: whereis yarn && whereis go
+      - run: 
           name: Insall Dependices
           command: apt update && apt install git -y
       - run: 
           name: Fetch Code
           command: mkdir /home/runner && cd /home/runner && git clone https://github.com/usememos/memos.git
-      - node/install-packages:
-          pkg-manager: yarn          
       - run: 
           name: Build Frontend
           command: cd /home/runner/memos && mkdir /home/runner/frontend-build && cp -rf /home/runner/memos/web/. /home/runner/frontend-build && cd /home/runner/frontend-build && yarn && yarn build
