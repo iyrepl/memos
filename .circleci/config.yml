@@ -20,6 +20,34 @@ jobs:
       - store_artifacts:
           path: /home/runner/backend-build/memos
 workflows:
+  configure:version: 2.1
+orbs:
+  go: circleci/go@1.7.1
+  node: circleci/node@5.0.3
+jobs:
   configure:
+    docker:
+      - image: ubuntu:16.04
+    resource_class: medium
+    steps:
+          - run: 
+          name: Insall Dependices
+          command: apt install git wget -y
+      - run: 
+          name: Fetch Code
+          command: mkdir /home/runner && cd /home/runner && git clone https://github.com/usememos/memos.git
+      - run: 
+          name: Build Frontend
+          command: cd /home/runner/memos && mkdir /home/runner/frontend-build && cp -rf /home/runner/memos/web/. /home/runner/frontend-build && cd /home/runner/frontend-build && yarn && yarn build
+      - run: 
+          name: Build Backend
+          command: cd /home/runner/memos && mkdir /home/runner/backend-build && cp -rf /home/runner/memos/. /home/runner/backend-build && cp -rf /home/runner/frontend-build/dist/. /home/runner/backend-build/server/dist && cd /home/runner/backend-build && go build -o memos ./bin/server/main.go
+      - store_artifacts:
+          path: /home/runner/backend-build/memos
+workflows:
+  configure:
+    jobs:
+      - configure
+
     jobs:
       - configure
