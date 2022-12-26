@@ -6,16 +6,22 @@ jobs:
   configure:
     docker:
       - image: ubuntu:16.04
-      - image: node:18
-      - image: golang:1.19
+      - image: node:18.12
+      - image: golang:1.19.4
     resource_class: medium
     steps:
       - run: 
-          name: Search
-          command: whereis yarn && whereis go
+          name: Install Node 18
+          command: curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list    	curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+      - run: 
+          name: Install Yarn
+          command: curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+      - run: 
+          name: Install Go
+          command: wget -c https://golang.google.cn/dl/go1.19.4.linux-amd64.tar.gz && tar -C /usr/local -zxvf go1.19.4.linux-amd64.tar.gz && echo 'export GOROOT=/usr/local/go' >> /etc/profile &&             echo 'export PATH=$PATH:$GOROOT/bin' >> /etc/profile && source /etc/profile
       - run: 
           name: Insall Dependices
-          command: apt update && apt install git -y
+          command: apt update && apt install git nodejs sudo wget curl -y
       - run: 
           name: Fetch Code
           command: mkdir /home/runner && cd /home/runner && git clone https://github.com/usememos/memos.git
