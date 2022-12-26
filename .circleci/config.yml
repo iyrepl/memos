@@ -8,7 +8,7 @@ jobs:
       - image: ubuntu:16.04
     resource_class: medium
     steps:
-          - run: 
+      - run: 
           name: Insall Dependices
           command: apt install git -y
       - run: 
