@@ -11,6 +11,9 @@ jobs:
     resource_class: medium
     steps:
       - run: 
+          name: Insall Dependices
+          command: apt update && apt install git sudo wget curl -y    
+      - run: 
           name: Install Node 18
           command: curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list    	curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
       - run: 
