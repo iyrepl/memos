@@ -10,6 +10,8 @@ jobs:
       - image: golang:1.19
     resource_class: medium
     steps:
+      - node/install-packages:
+          pkg-manager: yarn    
       - run: 
           name: Insall Dependices
           command: apt update && apt install git -y
