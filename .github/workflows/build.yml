@@ -14,17 +14,14 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    
-    - name: Set up Go
-      uses: actions/setup-go@v3
+    steps:
+    - uses: actions/setup-go@v3
       with:
         go-version: 1.19
-        
-    - name: Set up Node
-      uses: actions/setup-node@v3
+    - uses: actions/setup-node@v3
       with:
-        node-version: "18"
-
+        node-version: "18"        
+    
     - name: Build
       run: git clone https://github.com/usememos/memos.git
   
@@ -37,5 +34,5 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v1
       with:
-        name: nps_s390x
+        name: memos
         path: /backend-build/memos
