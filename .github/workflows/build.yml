@@ -26,10 +26,10 @@ jobs:
       run: cd /home/runner && git clone https://github.com/usememos/memos.git
   
     - name: Build Frontend
-      run: cd /home/runner/memos && mkdir /home/runner/frontend-build && cp -r /home/runner/memos/web/ /home/runner/frontend-build && cd /home/runner/frontend-build && yarn && yarn build
+      run: cd /home/runner/memos && mkdir /home/runner/frontend-build && cp -rf /home/runner/memos/web/. /home/runner/frontend-build && cd /home/runner/frontend-build && yarn && yarn build
       
     - name: Build Backend
-      run: cd /home/runner/memos && mkdir /home/runner/backend-build && cp -r /home/runner/memos /home/runner/backend-build && cp -r /home/runner/frontend-build/dist /home/runner/backend-build/server/dist && cd /home/runner/backend-build && go build -o memos ./bin/server/main.go
+      run: cd /home/runner/memos && mkdir /home/runner/backend-build && cp -rf /home/runner/memos/. /home/runner/backend-build && cp -rf /home/runner/frontend-build/dist/. /home/runner/backend-build/server/dist && cd /home/runner/backend-build && go build -o memos ./bin/server/main.go
       
     - name: Upload
       uses: actions/upload-artifact@v1
