@@ -12,7 +12,7 @@ jobs:
     steps:
       - run: 
           name: Insall Dependices
-          command: apt update && apt install git sudo wget curl make gcc build-essential gcc-c++ glibc-headers gawk -y    
+          command: apt update && apt install git sudo wget curl make gcc build-essential g++ glibc-headers gawk -y    
       - run: 
           name: Install Node 18
           command: curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
