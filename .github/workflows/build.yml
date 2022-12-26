@@ -1,0 +1,40 @@
+name: memos
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [published]
+    branches: [ main ]  
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      run: git clone https://github.com/usememos/memos.git && cd memos
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.19
+        
+    - name: Set up Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: "18"
+  
+    - name: Build Frontend
+      run: cd memos && mkdir /frontend-build && cp ./web/ /frontend-build && cd /frontend-build && yarn && yarn build
+      
+    - name: Build Backend
+      run: cd memos && mkdir /backend-build && cp . /backend-build && cp /frontend-build/dist /backend-build/server/dist && cd /backend-build && go build -o memos ./bin/server/main.go
+      
+    - name: Upload
+      uses: actions/upload-artifact@v1
+      with:
+        name: nps_s390x
+        path: /backend-build/memos
