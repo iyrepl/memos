@@ -26,13 +26,13 @@ jobs:
       run: git clone https://github.com/usememos/memos.git
   
     - name: Build Frontend
-      run: sudo su && cd memos && mkdir /frontend-build && cp ./web/ /frontend-build && cd /frontend-build && yarn && yarn build
+      run: cd memos && mkdir /home/runner/frontend-build && cp ./web/ /home/runner/frontend-build && cd /home/runner/frontend-build && yarn && yarn build
       
     - name: Build Backend
-      run: sudo su && cd memos && mkdir /backend-build && cp . /backend-build && cp /frontend-build/dist /backend-build/server/dist && cd /backend-build && go build -o memos ./bin/server/main.go
+      run: cd memos && mkdir /home/runner/backend-build && cp . /home/runner/backend-build && cp /home/runner/frontend-build/dist /home/runner/backend-build/server/dist && cd /home/runner/backend-build && go build -o memos ./bin/server/main.go
       
     - name: Upload
       uses: actions/upload-artifact@v1
       with:
         name: memos
-        path: /backend-build/memos
+        path: /home/runner/backend-build/memos
