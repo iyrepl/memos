@@ -19,3 +19,7 @@ jobs:
           command: cd /home/runner/memos && mkdir /home/runner/backend-build && cp -rf /home/runner/memos/. /home/runner/backend-build && cp -rf /home/runner/frontend-build/dist/. /home/runner/backend-build/server/dist && cd /home/runner/backend-build && go build -o memos ./bin/server/main.go
       - store_artifacts:
           path: /home/runner/backend-build/memos
+workflows:
+  configure:
+    jobs:
+      - configure
