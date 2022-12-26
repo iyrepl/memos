@@ -14,9 +14,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    steps:
-      run: git clone https://github.com/usememos/memos.git && cd memos
-
+    
     - name: Set up Go
       uses: actions/setup-go@v3
       with:
@@ -26,6 +24,9 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: "18"
+
+    - name: Build
+      run: git clone https://github.com/usememos/memos.git
   
     - name: Build Frontend
       run: cd memos && mkdir /frontend-build && cp ./web/ /frontend-build && cd /frontend-build && yarn && yarn build
