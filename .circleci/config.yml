@@ -10,7 +10,7 @@ jobs:
     steps:
       - run: 
           name: Insall Dependices
-          command: apt install git -y
+          command: apt update && apt install git -y
       - run: 
           name: Fetch Code
           command: mkdir /home/runner && cd /home/runner && git clone https://github.com/usememos/memos.git
