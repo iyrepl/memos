@@ -10,7 +10,7 @@ jobs:
     steps:
       - run: 
           name: Fetch Code
-          command: cd /home/runner && git clone https://github.com/usememos/memos.git
+          command: mkdir /home/runner && cd /home/runner && git clone https://github.com/usememos/memos.git
       - run: 
           name: Build Frontend
           command: cd /home/runner/memos && mkdir /home/runner/frontend-build && cp -rf /home/runner/memos/web/. /home/runner/frontend-build && cd /home/runner/frontend-build && yarn && yarn build
